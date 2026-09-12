@@ -123,7 +123,24 @@
   /* ---------- 6. Контактна форма (статична, без сервер) ---------- */
   var form = document.getElementById("contact-form");
   var msg = document.getElementById("form-msg");
-  var CONTACT_EMAIL = "kontakt@peptidimk.mk"; // замени со вистинска адреса
+  var CONTACT_EMAIL = "josifilievski3@gmail.com";
+
+  var IS_EN = (document.documentElement.getAttribute("lang") || "mk").indexOf("en") === 0;
+  var T = IS_EN
+    ? {
+        required: "Fill in all fields before continuing.",
+        email: "Check the email address.",
+        consent: "Please confirm that you understand this page is educational.",
+        subject: "Question from the peptides site — ",
+        from: "From"
+      }
+    : {
+        required: "Пополни ги сите полиња пред да продолжиш.",
+        email: "Провери ја адресата за е-пошта.",
+        consent: "Потврди дека разбираш дека страницата е едукативна.",
+        subject: "Прашање од peptidi.mk — ",
+        from: "Од"
+      };
 
   function setMessage(text, isError) {
     if (!msg) return;
@@ -141,20 +158,20 @@
       var consent = form.elements.consent.checked;
 
       if (!name || !email || !message) {
-        setMessage("Пополни ги сите полиња пред да продолжиш.", true);
+        setMessage(T.required, true);
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        setMessage("Провери ја адресата за е-пошта.", true);
+        setMessage(T.email, true);
         return;
       }
       if (!consent) {
-        setMessage("Потврди дека разбираш дека страницата е едукативна.", true);
+        setMessage(T.consent, true);
         return;
       }
 
-      var subject = "Прашање од peptidi.mk — " + name;
-      var body = message + "\n\n—\nОд: " + name + "\nЕ-пошта: " + email;
+      var subject = T.subject + name;
+      var body = message + "\n\n—\n" + T.from + ": " + name + "\nEmail: " + email;
       var href =
         "mailto:" +
         CONTACT_EMAIL +
@@ -165,7 +182,9 @@
 
       window.location.href = href;
       setMessage(
-        "Отворам клиент за е-пошта. Ако не се отвори, пиши директно на " + CONTACT_EMAIL + ".",
+        IS_EN
+          ? "Opening your email client. If nothing opens, write directly to " + CONTACT_EMAIL + "."
+          : "Отворам клиент за е-пошта. Ако не се отвори, пиши директно на " + CONTACT_EMAIL + ".",
         false
       );
       form.reset();

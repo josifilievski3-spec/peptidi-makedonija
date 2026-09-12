@@ -12,11 +12,13 @@
 | Пат | Што содржи |
 | --- | --- |
 | `index.html` | Целата содржина: основи, каталог, правен статус, безбедност, ЧПП, контакт |
+| `en/index.html` | Англиска верзија на истата содржина |
 | `styles.css` | Темата и целиот дизајн (темна палета, одзивен распоред) |
-| `app.js` | Мени, филтер на каталогот, анимации, валидација на формата |
+| `app.js` | Мени, филтер на каталогот, анимации, валидација на формата (MK/EN) |
 | `404.html` | Страница за непостоечки линкови |
 | `assets/favicon.svg` | Иконата на сајтот |
 | `vercel.json` | Заглавја, кеш и чисти URL-а на Vercel |
+| `.github/workflows/deploy.yml` | Автоматски продукциски деплој при push на `main` |
 
 ## Локално пуштање
 
@@ -35,10 +37,12 @@ npx serve .
   `heal`, `hormone`, `metab`, `cog`, `cosm`, `immune`, `long`.
 - **Нова секција** — додај `<section class="section" id="ime">` и линк во
   `.nav-menu` и во подножјето.
-- **Контакт адреса** — во `app.js` замени ја константата `CONTACT_EMAIL`
-  (`kontakt@peptidimk.mk`) со вистинска адреса. Формата е статична и отвора
-  клиент за е-пошта; ако сакаш вистинско испраќање, поврзи ја со Formspree,
-  Vercel Function или слична услуга.
+- **Контакт адреса** — во `app.js` константата `CONTACT_EMAIL` е поставена на
+  `josifilievski3@gmail.com`. Формата е статична и отвора клиент за е-пошта;
+  ако сакаш вистинско испраќање, поврзи ја со Formspree, Vercel Function или
+  слична услуга.
+- **Англиска верзија** — `en/index.html`. Ако додаваш содржина, ажурирај ги
+  двете страници и `hreflang` ознаките во `<head>`.
 
 ## Деплој
 
@@ -52,20 +56,22 @@ vercel --prod   # продукција
 
 ### Автоматски деплој при push
 
-Потребен е еден чекор од сопственикот на сметката, па потоа секој push на `main`
-објавува нова верзија самостојно:
+Workflow-от `.github/workflows/deploy.yml` е подготвен и работи на секој push на
+`main`. Додека не постои креденцијал, тој само се прескокнува (не паѓа) и
+испраќа notice. Потребен е еден од двата чекори:
 
-1. Отвори <https://vercel.com/account/login-connections> и поврзи го GitHub
-   профилот со Vercel (Connect GitHub).
-2. Во оваа папка изврши:
+**Опција А — токен (работи веднаш):**
 
-```bash
-vercel git connect
-```
+1. Отвори <https://vercel.com/account/tokens> и креирај токен.
+2. Во GitHub: Settings → Secrets and variables → Actions → New repository secret,
+   име `VERCEL_TOKEN`, вредност токенот.
 
-Алтернатива без поврзување на сметките е GitHub Actions со `VERCEL_TOKEN`
-(секрет во GitHub → Settings → Secrets and variables → Actions), но бара
-рачно креиран токен од <https://vercel.com/account/tokens>.
+**Опција Б — Git интеграција (почиста, дава и preview деплој за PR):**
+
+1. Отвори <https://vercel.com/account/login-connections> и поврзи GitHub.
+2. Изврши `vercel git connect` во оваа папка.
+
+Потоа опцијата во GitHub Actions може да се избрише ако се користи Б.
 
 ## Правна и здравствена рамка
 

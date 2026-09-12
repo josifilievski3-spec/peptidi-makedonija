@@ -150,6 +150,14 @@ strong, b { color: #fff; font-weight: 700; }
 }
 .nav-cta:hover { filter: brightness(1.08); }
 
+.nav-lang a {
+  display: inline-block; padding: 8px 13px;
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  font-size: .8rem; font-weight: 750; letter-spacing: .08em;
+  color: #cbd4e6;
+}
+.nav-lang a:hover { background: var(--surface-2); color: #fff; text-decoration: none; }
+
 .nav-toggle {
   display: none;
   width: 42px; height: 42px; border-radius: 12px;
