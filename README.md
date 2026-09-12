@@ -42,14 +42,30 @@ npx serve .
 
 ## Деплој
 
-Секој push на `main` автоматски објавува нова верзија ако проектот е поврзан
-со GitHub во Vercel.
+Тековна адреса: **https://peptidi-makedonija.vercel.app**
 
 ```bash
 # рачно, од локалната папка
 vercel          # preview
 vercel --prod   # продукција
 ```
+
+### Автоматски деплој при push
+
+Потребен е еден чекор од сопственикот на сметката, па потоа секој push на `main`
+објавува нова верзија самостојно:
+
+1. Отвори <https://vercel.com/account/login-connections> и поврзи го GitHub
+   профилот со Vercel (Connect GitHub).
+2. Во оваа папка изврши:
+
+```bash
+vercel git connect
+```
+
+Алтернатива без поврзување на сметките е GitHub Actions со `VERCEL_TOKEN`
+(секрет во GitHub → Settings → Secrets and variables → Actions), но бара
+рачно креиран токен од <https://vercel.com/account/tokens>.
 
 ## Правна и здравствена рамка
 
